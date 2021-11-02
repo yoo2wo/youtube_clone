@@ -13,9 +13,12 @@ function App({ youtube }) {
   };
 
   const search = query => {
-    youtube
-      .search(query) //
-      .then(videos => setVideos(videos));
+	setSelectedVideo(null);
+	youtube
+		.search(query) //
+		.then(videos => {
+			setVideos(videos)
+		});
   };
 
   useEffect(() => {
@@ -24,23 +27,23 @@ function App({ youtube }) {
       .then(videos => setVideos(videos));
   }, []);
   return (
-    <div className={styles.app}>
-      <SearchHeader onSearch={search} />
-      <section className={styles.content}>
-        {selectedVideo && (
-          <div className={styles.detail}>
-            <VideoDetail video={selectedVideo} />
-          </div>
-        )}
-        <div className={styles.list}>
-          <VideoList
-            videos={videos}
-            onVideoClick={selectVideo}
-            display={selectedVideo ? 'list' : 'grid'}
-          />
-        </div>
-      </section>
-    </div>
+	<div className={styles.app}>
+		<SearchHeader onSearch={search} />
+		<section className={styles.content}>
+			{selectedVideo && (
+				<div className={styles.detail}>
+					<VideoDetail video={selectedVideo} />
+				</div>
+			)}
+			<div className={styles.list}>
+			<VideoList
+				videos={videos}
+				onVideoClick={selectVideo}
+				display={selectedVideo ? 'list' : 'grid'}
+			/>
+			</div>
+		</section>
+	</div>
   );
 }
 
